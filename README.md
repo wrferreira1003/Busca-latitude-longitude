@@ -1,3 +1,65 @@
+# Busca de Latitude e Longitude por CEP
+
+Aplicação Next.js para buscar coordenadas geográficas (latitude e longitude) de franquias com base no CEP.
+
+## Funcionalidades
+
+- Upload de arquivo CSV contendo dados de franquias (id, nome, cep)
+- Validação e padronização automática de CEPs em diferentes formatos
+- Conversão de CEP para latitude e longitude usando API ViaCEP e Nominatim OpenStreetMap
+- Coordenadas no formato padrão com ponto decimal (ex: 41.40338, 2.17403)
+- Exibição dos resultados em tabela com status de processamento
+- Exportação dos resultados para CSV
+
+## Tecnologias Utilizadas
+
+- Next.js 14
+- TypeScript
+- Tailwind CSS
+- Papa Parse (para parsing de CSV)
+- React-CSV (para exportação de CSV)
+- Axios (para requisições HTTP)
+- APIs: ViaCEP e Nominatim OpenStreetMap
+
+## Validação de CEP
+
+A aplicação suporta CEPs em diferentes formatos:
+- Com ou sem hífen (01310-100 ou 01310100)
+- Com ou sem pontos (01310.100 ou 01310100)
+
+O sistema:
+- Valida se o CEP possui 8 dígitos
+- Padroniza para o formato XXXXX-XXX
+- Informa na tabela de resultados o status do processamento, incluindo erros específicos de validação
+
+## Como executar
+
+1. Clone o repositório
+2. Instale as dependências:
+```bash
+npm install
+```
+3. Execute o servidor de desenvolvimento:
+```bash
+npm run dev
+```
+4. Acesse a aplicação em [http://localhost:3000](http://localhost:3000)
+
+## Utilização
+
+1. Faça upload de um arquivo CSV contendo as colunas: id, nome, cep
+   - Você pode baixar um arquivo de exemplo diretamente na aplicação
+2. Clique em "Buscar Coordenadas" para iniciar o processamento
+3. Aguarde o processamento (a barra de progresso indicará o status)
+4. Visualize os resultados na tabela
+5. Utilize o botão "Exportar CSV" para baixar os resultados com as coordenadas
+
+## Limitações
+
+- A aplicação usa APIs gratuitas que podem ter limites de requisição
+- Foi implementado um delay de 1 segundo entre requisições para evitar sobrecarregar as APIs
+- Para grandes volumes de dados, o processamento pode levar algum tempo
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
