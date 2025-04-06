@@ -4,6 +4,7 @@ Aplicação Next.js para buscar coordenadas geográficas (latitude e longitude) 
 
 ## Funcionalidades
 
+- Consulta individual de CEP diretamente na interface
 - Upload de arquivo CSV contendo dados de franquias (id, nome, cep)
 - Validação e padronização automática de CEPs em diferentes formatos
 - Conversão de CEP para latitude e longitude usando API ViaCEP e Nominatim OpenStreetMap
@@ -32,6 +33,16 @@ O sistema:
 - Padroniza para o formato XXXXX-XXX
 - Informa na tabela de resultados o status do processamento, incluindo erros específicos de validação
 
+### Tratamento Especial para CEPs de Cidades
+
+Para CEPs genéricos de cidades (terminados em 000), o sistema implementa uma busca alternativa:
+- Caso o CEP não seja encontrado na API ViaCEP (como 44900-000)
+- Tenta localizar um CEP próximo na mesma cidade (ex: 44900-010)
+- Se encontrado, utiliza apenas a cidade e estado para geolocalização
+- Retorna as coordenadas com o status "Sucesso (aproximado por cidade)"
+
+Isso permite que mesmo CEPs não cadastrados na base da ViaCEP possam ter suas coordenadas aproximadas pela localização da cidade.
+
 ## Como executar
 
 1. Clone o repositório
@@ -47,12 +58,21 @@ npm run dev
 
 ## Utilização
 
+### Consulta Individual
+1. Digite o nome (opcional) e o CEP que deseja consultar
+2. Clique em "Buscar" para obter as coordenadas
+3. O resultado será exibido na tabela
+
+### Processamento em Massa via CSV
 1. Faça upload de um arquivo CSV contendo as colunas: id, nome, cep
    - Você pode baixar um arquivo de exemplo diretamente na aplicação
 2. Clique em "Buscar Coordenadas" para iniciar o processamento
 3. Aguarde o processamento (a barra de progresso indicará o status)
 4. Visualize os resultados na tabela
 5. Utilize o botão "Exportar CSV" para baixar os resultados com as coordenadas
+6. Utilize os botões de limpeza quando precisar:
+   - "Limpar Arquivo" para remover o arquivo CSV carregado e começar do zero
+   - "Limpar Resultados" para manter o arquivo carregado, mas remover os resultados processados
 
 ## Limitações
 
